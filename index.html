@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KristiKor - Вязаные сумочки ручной работы</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap');
+        
+        :root {
+            --dark-brown: #5D4037;
+            --medium-brown: #8D6E63;
+            --light-brown: #D7CCC8;
+            --cream: #EFEBE9;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream);
+            color: var(--dark-brown);
+        }
+        
+        .title-font {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(rgba(239, 235, 233, 0.9), rgba(239, 235, 233, 0.9)), 
+                        url('https://images.unsplash.com/photo-1604176354202-3f32e5600db3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .bag-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(93, 64, 55, 0.1);
+        }
+        
+        .bag-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(93, 64, 55, 0.2);
+        }
+        
+        .overlay-bags {
+            position: relative;
+            height: 400px;
+        }
+        
+        .overlay-bag {
+            position: absolute;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+            border: 1px solid var(--light-brown);
+        }
+        
+        .bag-1 {
+            top: 0;
+            left: 0;
+            width: 250px;
+            z-index: 3;
+        }
+        
+        .bag-2 {
+            top: 50px;
+            left: 150px;
+            width: 220px;
+            z-index: 2;
+            transform: rotate(-5deg);
+        }
+        
+        .bag-3 {
+            top: 100px;
+            left: 300px;
+            width: 200px;
+            z-index: 1;
+            transform: rotate(5deg);
+        }
+        
+        .gallery-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .gallery-item {
+            flex: 0 0 auto;
+            scroll-snap-align: start;
+            width: 300px;
+            margin-right: 15px;
+        }
+        
+        .gallery-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .gallery-container::-webkit-scrollbar-track {
+            background: var(--light-brown);
+        }
+        
+        .gallery-container::-webkit-scrollbar-thumb {
+            background-color: var(--medium-brown);
+            border-radius: 20px;
+        }
+        
+        .btn-primary {
+            background-color: var(--dark-brown);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #4E342E;
+        }
+        
+        .btn-secondary {
+            border: 2px solid var(--dark-brown);
+            color: var(--dark-brown);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--dark-brown);
+            color: white;
+        }
+        .mb-6 {
+            padding-right: 20px;
+        }
+        @media (max-width: 768px) {
+            .overlay-bags {
+                height: 300px;
+            }
+            
+            .bag-1 {
+                width: 180px;
+            }
+            
+            .bag-2 {
+                width: 150px;
+                left: 100px;
+            }
+            
+            .bag-3 {
+                width: 130px;
+                left: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-basket-shopping text-[#5D4037] text-2xl mr-2"></i>
+                <h1 class="title-font text-2xl font-semibold text-[#5D4037]">KristiKor</h1>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#products" class="text-[#5D4037] hover:text-[#8D6E63] transition">Коллекция</a>
+                <a href="#about" class="text-[#5D4037] hover:text-[#8D6E63] transition">О нас</a>
+                <a href="#gallery" class="text-[#5D4037] hover:text-[#8D6E63] transition">Галерея</a>
+                <a href="#contact" class="text-[#5D4037] hover:text-[#8D6E63] transition">Контакты</a>
+            </nav>
+            <button class="md:hidden text-[#5D4037]">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Герой -->
+    <section class="hero-bg py-20">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h2 class="title-font text-4xl md:text-5xl font-bold text-[#5D4037] mb-4">Эксклюзивные вязаные сумочки</h2>
+                <p class="text-lg text-[#5D4037] mb-6">Ручная работа из натуральных материалов с любовью и вниманием к деталям</p>
+                <a href="#products" class="btn-primary px-6 py-3 rounded-full font-medium transition inline-block">Выбрать свою</a>
+            </div>
+            <div class="md:w-1/2 overlay-bags">
+                <img src="https://images.unsplash.com/photo-1591348278863-a8fb3887e2aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Вязаная сумочка" class="overlay-bag bag-1">
+                <img src="https://images.unsplash.com/photo-1591348278863-a8fb3887e2aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Вязаная сумочка" class="overlay-bag bag-2">
+                <img src="https://images.unsplash.com/photo-1591348278863-a8fb3887e2aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Вязаная сумочка" class="overlay-bag bag-3">
+            </div>
+        </div>
+    </section>
+
+    <!-- О нас -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="title-font text-3xl font-bold text-[#5D4037] mb-4">KristiKor - искусство в каждой петле</h2>
+                <div class="w-24 h-1 bg-[#5D4037] mx-auto"></div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                    <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Ручная работа" class="rounded-lg shadow-lg">
+                </div>
+                <div class="md:w-1/2">
+                    <p class="text-[#5D4037] mb-4">Каждая сумочка KristiKor - это уникальное произведение искусства, созданное вручную с использованием только натуральных материалов: хлопка, льна и шерсти.</p>
+                    <p class="text-[#5D4037] mb-4">Мы сочетаем традиционные техники вязания с современным дизайном, чтобы создать аксессуары, которые подчеркнут вашу индивидуальность.</p>
+                    <p class="text-[#5D4037]">Наши мастера вкладывают душу в каждое изделие, уделяя внимание каждой детали - от выбора пряжи до последнего стежка.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Коллекция -->
+    <section id="products" class="py-16 bg-[#EFEBE9]">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="title-font text-3xl font-bold text-[#5D4037] mb-4">Наша коллекция</h2>
+                <div class="w-24 h-1 bg-[#5D4037] mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Товар 1 -->
+                <div class="bag-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1591348278863-a8fb3887e2aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Вязаная сумочка" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="title-font text-xl font-semibold text-[#5D4037] mb-2">Летний бриз</h3>
+                        <p class="text-[#8D6E63] mb-4">Легкая хлопковая сумочка с деревянными бусинами</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-[#5D4037]">4 500 ₽</span>
+                            <button class="btn-primary px-4 py-2 rounded-full text-sm transition">Подробнее</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Товар 2 -->
+                <div class="bag-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1556740734-9f9ca6b370f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Вязаная сумочка" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="title-font text-xl font-semibold text-[#5D4037] mb-2">Осенний вальс</h3>
+                        <p class="text-[#8D6E63] mb-4">Шерстяная сумочка с кожаными вставками</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-[#5D4037]">5 800 ₽</span>
+                            <button class="btn-primary px-4 py-2 rounded-full text-sm transition">Подробнее</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Товар 3 -->
+                <div class="bag-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1591348162300-9ec0df1d4b4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Вязаная сумочка" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="title-font text-xl font-semibold text-[#5D4037] mb-2">Зимняя сказка</h3>
+                        <p class="text-[#8D6E63] mb-4">Плотная вязаная сумочка с меховой отделкой</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-[#5D4037]">6 200 ₽</span>
+                            <button class="btn-primary px-4 py-2 rounded-full text-sm transition">Подробнее</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="btn-secondary px-6 py-3 rounded-full font-medium transition inline-block">Смотреть всю коллекцию</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Галерея -->
+    <section id="gallery" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="title-font text-3xl font-bold text-[#5D4037] mb-4">Наши работы</h2>
+                <div class="w-24 h-1 bg-[#5D4037] mx-auto"></div>
+            </div>
+            
+            <div class="gallery-container mb-8 py-4">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1556909114-44e60c8f9ec5?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Сумочка" class="w-full h-64 object-cover rounded-lg">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Сумочка" class="w-full h-64 object-cover rounded-lg">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1604176354202-3f32e5600db3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Сумочка" class="w-full h-64 object-cover rounded-lg">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1556909114-44e60c8f9ec5?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Сумочка" class="w-full h-64 object-cover rounded-lg">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1591348278863-a8fb3887e2aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Сумочка" class="w-full h-64 object-cover rounded-lg">
+                </div>
+            </div>
+            
+            <div class="flex justify-center space-x-4">
+                <button class="gallery-prev bg-[#D7CCC8] hover:bg-[#8D6E63] text-[#5D4037] hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="gallery-next bg-[#D7CCC8] hover:bg-[#8D6E63] text-[#5D4037] hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact" class="py-16 bg-[#EFEBE9]">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="title-font text-3xl font-bold text-[#5D4037] mb-4">Свяжитесь с нами</h2>
+                <div class="w-24 h-1 bg-[#5D4037] mx-auto"></div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                    <h3 class="title-font text-xl font-semibold text-[#5D4037] mb-4">Мы всегда рады новым знакомствам</h3>
+                    <p class="text-[#5D4037] mb-6">Если у вас есть вопросы о наших изделиях или вы хотите сделать индивидуальный заказ, напишите нам или позвоните.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-[#8D6E63] mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-medium text-[#5D4037]">Адрес</h4>
+                                <p class="text-[#5D4037]">г. Тюмень, ул. Творческая, д. 42</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-phone-alt text-[#8D6E63] mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-medium text-[#5D4037]">Телефон</h4>
+                                <p class="text-[#5D4037]">+7 (999) 123-45-67</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-envelope text-[#8D6E63] mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-medium text-[#5D4037]">Email</h4>
+                                <p class="text-[#5D4037]">hello@kristikor.ru</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="font-medium text-[#5D4037] mb-4">Мы в социальных сетях</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-[#D7CCC8] hover:bg-[#8D6E63] text-[#5D4037] hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="bg-[#D7CCC8] hover:bg-[#8D6E63] text-[#5D4037] hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-vk"></i>
+                            </a>
+                            <a href="#" class="bg-[#D7CCC8] hover:bg-[#8D6E63] text-[#5D4037] hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-telegram-plane"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <form class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="mb-4">
+                            <label for="name" class="block text-[#5D4037] font-medium mb-2">Ваше имя</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-[#D7CCC8] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8D6E63]">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="email" class="block text-[#5D4037] font-medium mb-2">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-[#D7CCC8] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8D6E63]">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="phone" class="block text-[#5D4037] font-medium mb-2">Телефон</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-2 border border-[#D7CCC8] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8D6E63]">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="message" class="block text-[#5D4037] font-medium mb-2">Сообщение</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-2 border border-[#D7CCC8] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8D6E63]"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full btn-primary py-3 rounded-full font-medium transition">Отправить сообщение</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="bg-[#5D4037] text-[#D7CCC8] py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center">
+                        <i class="fas fa-basket-shopping text-[#EFEBE9] text-2xl mr-2"></i>
+                        <h2 class="title-font text-2xl font-semibold text-[#EFEBE9]">KristiKor</h2>
+                    </div>
+                    <p class="mt-2 text-[#EFEBE9]">Вязаные сумочки ручной работы</p>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p>&copy; 2023 KristiKor. Все права защищены.</p>
+                    <p class="mt-1">Сделано с <i class="fas fa-heart text-[#EFEBE9]"></i> в Тюмени</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Галерея с прокруткой
+        const galleryContainer = document.querySelector('.gallery-container');
+        const galleryPrev = document.querySelector('.gallery-prev');
+        const galleryNext = document.querySelector('.gallery-next');
+        
+        galleryPrev.addEventListener('click', () => {
+            galleryContainer.scrollBy({left: -300, behavior: 'smooth'});
+        });
+        
+        galleryNext.addEventListener('click', () => {
+            galleryContainer.scrollBy({left: 300, behavior: 'smooth'});
+        });
+        
+        // Анимация наложения сумок
+        const overlayBags = document.querySelector('.overlay-bags');
+        const bags = document.querySelectorAll('.overlay-bag');
+        
+        overlayBags.addEventListener('mousemove', (e) => {
+            const x = e.clientX - overlayBags.getBoundingClientRect().left;
+            const y = e.clientY - overlayBags.getBoundingClientRect().top;
+            
+            const centerX = overlayBags.offsetWidth / 2;
+            const centerY = overlayBags.offsetHeight / 2;
+            
+            bags.forEach((bag, index) => {
+                const moveX = (x - centerX) * 0.05 * (index + 1);
+                const moveY = (y - centerY) * 0.05 * (index + 1);
+                
+                bag.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${index % 2 ? -5 : 5}deg)`;
+            });
+        });
+        
+        overlayBags.addEventListener('mouseleave', () => {
+            bags.forEach((bag, index) => {
+                bag.style.transform = `rotate(${index % 2 ? -5 : 5}deg)`;
+            });
+        });
+    </script>
+</body>
+</html>
