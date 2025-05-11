@@ -222,11 +222,11 @@
         </div>
         <!-- Мобильное меню -->
         <div class="mobile-menu">
-            <span class="close-btn">&times;</span>
-            <a href="#products">Коллекция</a>
-            <a href="#about">О нас</a>
-            <a href="#gallery">Галерея</a>
-            <a href="#contact">Контакты</a>
+            <span class="close-btn">×</span>
+            <a href="#products" class="menu-link">Коллекция</a>
+            <a href="#about" class="menu-link">О нас</a>
+            <a href="#gallery" class="menu-link">Галерея</a>
+            <a href="#contact" class="menu-link">Контакты</a>
         </div>
     </header>
 
@@ -441,6 +441,7 @@
         const burgerMenu = document.querySelector('.burger-menu');
         const mobileMenu = document.querySelector('.mobile-menu');
         const closeBtn = document.querySelector('.close-btn');
+        const menuLinks = document.querySelectorAll('.menu-link');
 
         burgerMenu.addEventListener('click', () => {
             mobileMenu.classList.toggle('active');
@@ -448,6 +449,13 @@
 
         closeBtn.addEventListener('click', () => {
             mobileMenu.classList.remove('active');
+        });
+
+        // Закрытие меню при клике на любую ссылку
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
         });
 
         document.addEventListener('click', (e) => {
