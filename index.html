@@ -493,23 +493,15 @@
         const bags = document.querySelectorAll('.overlay-bag');
         
         overlayBags.addEventListener('mousemove', (e) => {
-            const x = e.clientX - overlayBags.getBoundingClientRect().left;
-            const y = e.clientY - overlayBags.getBoundingClientRect().top;
-            
-            const centerX = overlayBags.offsetWidth / 2;
-            const centerY = overlayBags.offsetHeight / 2;
-            
             bags.forEach((bag, index) => {
-                const moveX = (x - centerX) * 0.05 * (index + 1);
-                const moveY = (y - centerY) * 0.05 * (index + 1);
-                
-                bag.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${index % 2 ? -5 : 5}deg)`;
+                const scale = 1 + (index + 1) * 0.02; // Легкое масштабирование
+                bag.style.transform = `scale(${scale})`;
             });
         });
         
         overlayBags.addEventListener('mouseleave', () => {
-            bags.forEach((bag, index) => {
-                bag.style.transform = `rotate(${index % 2 ? -5 : 5}deg)`;
+            bags.forEach((bag) => {
+                bag.style.transform = `scale(1)`; // Возврат к исходному масштабу
             });
         });
 
